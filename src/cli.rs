@@ -3,14 +3,24 @@ use clap::{Parser, ValueEnum};
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
-pub(crate) struct Args {
+pub struct Cli {
     #[clap(short, long)]
-    pub city: String,
+    city: String,
     #[clap(short, long)]
-    pub country: String,
+    nation: String,
     #[clap(short, long)]
-    pub unit: Unit,
-
+    unit: Unit,
+}
+impl Cli {
+    pub fn get_city(&self) -> String {
+        self.city.clone()
+    }
+    pub fn get_nation(&self) -> String {
+        self.nation.clone()
+    }
+    pub fn get_unit(&self) -> Unit {
+        self.unit.clone()
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]

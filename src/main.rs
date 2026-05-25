@@ -5,7 +5,7 @@ mod api;
 mod errors;
 
 fn main() {
-    let args = cli::Args::parse();
+    let args = cli::Cli::parse();
 
-    println!("{} - {} - {}", args.city, args.country, args.unit);
+    println!("{} - {} - {}", args.get_city(), args.get_nation(), args.get_unit());
 }
