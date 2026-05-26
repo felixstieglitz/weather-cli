@@ -4,7 +4,7 @@ use std::fmt::{Display, Formatter};
 #[derive(Debug)]
 pub enum AppError {
     HttpError(reqwest::Error),
-    CoordinateError,
+    CityNotFound,
     InputError,
 }
 impl Display for AppError {
