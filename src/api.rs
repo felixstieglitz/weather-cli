@@ -10,13 +10,13 @@ struct GeocodingResponse {
 
 #[derive(Debug, Deserialize)]
 struct LocationResult {
-    latitude: f64,
-    longitude: f64,
+    latitude: f32,
+    longitude: f32,
     name: String,
     country: String,
 }
 
-pub fn get_coord(name: String, country: String) -> Result<(f64,f64), AppError> {
+pub fn get_coord(name: String, country: String) -> Result<(f32,f32), AppError> {
     let url_city = name.replace(' ', "%20");
     let request_format = format!("https://geocoding-api.open-meteo.com/v1/search?name={url_city}",);
 
@@ -26,4 +26,23 @@ pub fn get_coord(name: String, country: String) -> Result<(f64,f64), AppError> {
         .find(|c| c.name == name && c.country == country)
         .ok_or(AppError::CityNotFound)?;
     Ok((city.latitude, city.longitude))
+}
+
+#[derive(Debug, Deserialize)]
+struct WeatherResponse {
+    current_weather: CurrentWeather
+}
+
+#[derive(Debug, Deserialize)]
+pub struct CurrentWeather {
+    temperature: f32,
+    weathercode: u8
+}
+
+pub fn get_weather(latitude: f32, longitude: f32) -> Result<CurrentWeather, AppError> {
+    let request_format = format!(
+        "https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current_weather=true",
+    );
+    let weather_response: WeatherResponse = reqwest::blocking::get(request_format)?.json()?;
+    Ok(weather_response.current_weather)
 }
