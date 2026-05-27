@@ -6,13 +6,15 @@ mod errors;
 
 fn main() {
     let args = cli::Cli::parse();
+    let unit = args.get_unit();
+    let city = args.get_city();
+    let country = args.get_nation();
+    println!("you entered: {} - {} - {}", city, country, unit.clone());
 
-    println!("{} - {} - {}", args.get_city(), args.get_nation(), args.get_unit());
+    let (lat,long):(f32,f32)  = api::get_coord(city.clone(), country).unwrap();
+    println!("Located at: {} - {}", lat, long);
 
-    let (lat,long):(f32,f32)  = api::get_coord(args.get_city(),args.get_nation()).unwrap();
-    println!("{:?}", (lat,long));
-
-    let weather = api::get_weather(lat, long, args.get_unit()).unwrap();
-    println!("{} - {}", weather.get_temperature(), weather.weather_description());
+    let weather = api::get_weather(lat, long, unit.clone()).unwrap();
+    println!("It is {} {} and {} in {}", weather.get_temperature(), unit.clone(), weather.weather_description(), city);
 
 }

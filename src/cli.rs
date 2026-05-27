@@ -25,7 +25,9 @@ impl Cli {
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]
 pub enum Unit {
+    #[value(alias = "C")]
     Celsius,
+    #[value(alias = "F")]
     Fahrenheit,
 }
 impl Unit {
