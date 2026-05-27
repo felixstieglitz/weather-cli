@@ -23,8 +23,10 @@ pub fn get_coord(name: String, country: String) -> Result<(f32,f32), AppError> {
 
     let response: GeocodingResponse = reqwest::blocking::get(request_format)?.json()?;
     let results = response.results.ok_or(AppError::CityNotFound)?;
+    let name_lower = name.to_lowercase();
+    let country_lower = country.to_lowercase();
     let city = results.into_iter()
-        .find(|c| c.name == name && c.country == country)
+        .find(|c| c.name.to_lowercase() == name_lower && c.country.to_lowercase() == country_lower)
         .ok_or(AppError::CityNotFound)?;
     Ok((city.latitude, city.longitude))
 }
