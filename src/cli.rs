@@ -28,6 +28,14 @@ pub enum Unit {
     Celsius,
     Fahrenheit,
 }
+impl Unit {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Unit::Celsius => "celsius",
+            Unit::Fahrenheit => "fahrenheit",
+        }
+    }
+}
 impl Display for Unit {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{:?}", self)

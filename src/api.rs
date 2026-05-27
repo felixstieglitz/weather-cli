@@ -1,5 +1,6 @@
 use reqwest;
 use serde::Deserialize;
+use crate::cli::Unit;
 use crate::errors::AppError;
 
 
@@ -57,9 +58,9 @@ impl CurrentWeather {
     }
 }
 
-pub fn get_weather(latitude: f32, longitude: f32) -> Result<CurrentWeather, AppError> {
+pub fn get_weather(latitude: f32, longitude: f32, unit: Unit) -> Result<CurrentWeather, AppError> {
     let request_format = format!(
-        "https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current_weather=true",
+        "https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current_weather=true&temperature_unit={}", unit.as_str(),
     );
     let weather_response: WeatherResponse = reqwest::blocking::get(request_format)?.json()?;
     Ok(weather_response.current_weather)

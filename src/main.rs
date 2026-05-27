@@ -12,7 +12,7 @@ fn main() {
     let (lat,long):(f32,f32)  = api::get_coord(args.get_city(),args.get_nation()).unwrap();
     println!("{:?}", (lat,long));
 
-    let weather = api::get_weather(lat, long).unwrap();
+    let weather = api::get_weather(lat, long, args.get_unit()).unwrap();
     println!("{} - {}", weather.get_temperature(), weather.weather_description());
 
 }
