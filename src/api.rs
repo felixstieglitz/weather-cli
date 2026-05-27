@@ -41,15 +41,15 @@ pub struct CurrentWeather {
 impl CurrentWeather {
     pub fn weather_description(&self) -> &'static str {
         match self.weathercode {
-            0 => "Klar",
-            1..=3 => "Bewölkt",
-            45 | 48 => "Nebel",
-            51..=55 => "Nieselregen",
-            61..=65 => "Regen",
-            71..=75 => "Schnee",
-            80..=82 => "Regenschauer",
-            95..=99 => "Gewitter",
-            _ => "Unbekannt",
+            0 => "Clear",
+            1..=3 => "Cloudy",
+            45 | 48 => "Fog",
+            51..=55 => "Drizzle",
+            61..=65 => "Rain",
+            71..=75 => "Snow",
+            80..=82 => "Rain showers",
+            95..=99 => "Thunderstorm",
+            _ => "Unknown",
         }
     }
 }
