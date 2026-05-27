@@ -39,6 +39,9 @@ pub struct CurrentWeather {
     weathercode: u8
 }
 impl CurrentWeather {
+    pub fn get_temperature(&self) -> f32 {
+        self.temperature.clone()
+    }
     pub fn weather_description(&self) -> &'static str {
         match self.weathercode {
             0 => "Clear",

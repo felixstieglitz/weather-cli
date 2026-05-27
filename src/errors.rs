@@ -3,9 +3,8 @@ use std::fmt::{Display, Formatter};
 
 #[derive(Debug)]
 pub enum AppError {
-    HttpError(reqwest::Error),
+    HttpError,
     CityNotFound,
-    InputError,
 }
 impl Display for AppError {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
@@ -13,8 +12,8 @@ impl Display for AppError {
     }
 }
 impl From<reqwest::Error> for AppError {
-    fn from(e: reqwest::Error) -> Self {
-        AppError::HttpError(e)
+    fn from(_: reqwest::Error) -> Self {
+        AppError::HttpError
     }
 }
 impl Error for AppError {}
