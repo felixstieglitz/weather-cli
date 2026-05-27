@@ -38,6 +38,21 @@ pub struct CurrentWeather {
     temperature: f32,
     weathercode: u8
 }
+impl CurrentWeather {
+    pub fn weather_description(&self) -> &'static str {
+        match self.weathercode {
+            0 => "Klar",
+            1..=3 => "Bewölkt",
+            45 | 48 => "Nebel",
+            51..=55 => "Nieselregen",
+            61..=65 => "Regen",
+            71..=75 => "Schnee",
+            80..=82 => "Regenschauer",
+            95..=99 => "Gewitter",
+            _ => "Unbekannt",
+        }
+    }
+}
 
 pub fn get_weather(latitude: f32, longitude: f32) -> Result<CurrentWeather, AppError> {
     let request_format = format!(
